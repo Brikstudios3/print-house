@@ -39,25 +39,6 @@
  },
  {
   "site": "ch",
-  "file": "ch1_2",
-  "plot": 1,
-  "type": "1E",
-  "name": "Apt 1 \u00b7 shower room",
-  "pos": [
-   17.725,
-   1.586,
-   4.925
-  ],
-  "look": [
-   15.31,
-   1.236,
-   6.704
-  ],
-  "room": "Shower room",
-  "note": "Apt 1, a 1-bed on the ground floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
- },
- {
-  "site": "ch",
   "file": "ch21_0",
   "plot": 21,
   "type": "1A",
@@ -96,25 +77,6 @@
  },
  {
   "site": "ch",
-  "file": "ch21_2",
-  "plot": 21,
-  "type": "1A",
-  "name": "Apt 21 \u00b7 shower room",
-  "pos": [
-   20.2,
-   10.136,
-   6.2
-  ],
-  "look": [
-   23.161,
-   9.786,
-   5.715
-  ],
-  "room": "Shower room",
-  "note": "Apt 21, a 1-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
- },
- {
-  "site": "ch",
   "file": "ch24_0",
   "plot": 24,
   "type": "2A",
@@ -129,6 +91,7 @@
    9.786,
    0.377
   ],
+  "hd": 1,
   "room": "Living and dining",
   "note": "Apt 24, a 2-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
  },
@@ -148,6 +111,7 @@
    9.786,
    0.106
   ],
+  "hd": 1,
   "room": "Main bedroom",
   "note": "Apt 24, a 2-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
  },
@@ -167,26 +131,8 @@
    9.786,
    4.876
   ],
+  "hd": 1,
   "room": "Second bedroom",
-  "note": "Apt 24, a 2-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
- },
- {
-  "site": "ch",
-  "file": "ch24_3",
-  "plot": 24,
-  "type": "2A",
-  "name": "Apt 24 \u00b7 shower room",
-  "pos": [
-   5.125,
-   10.136,
-   5.525
-  ],
-  "look": [
-   4.288,
-   9.786,
-   2.644
-  ],
-  "room": "Shower room",
   "note": "Apt 24, a 2-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
  },
  {
@@ -229,25 +175,6 @@
  },
  {
   "site": "ch",
-  "file": "ch25_2",
-  "plot": 25,
-  "type": "1C",
-  "name": "Apt 25 \u00b7 shower room",
-  "pos": [
-   5.2,
-   10.136,
-   7.5
-  ],
-  "look": [
-   6.277,
-   9.786,
-   4.7
-  ],
-  "room": "Shower room",
-  "note": "Apt 25, a 1-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
- },
- {
-  "site": "ch",
   "file": "ch26_0",
   "plot": 26,
   "type": "1B",
@@ -286,25 +213,6 @@
  },
  {
   "site": "ch",
-  "file": "ch26_2",
-  "plot": 26,
-  "type": "1B",
-  "name": "Apt 26 \u00b7 shower room",
-  "pos": [
-   6.9,
-   10.136,
-   15.5
-  ],
-  "look": [
-   6.823,
-   9.786,
-   12.501
-  ],
-  "room": "Shower room",
-  "note": "Apt 26, a 1-bed on the top floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
- },
- {
-  "site": "ch",
   "file": "ch3_0",
   "plot": 3,
   "type": "1D",
@@ -339,25 +247,6 @@
    4.909
   ],
   "room": "Bedroom",
-  "note": "Apt 3, a 1-bed on the ground floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
- },
- {
-  "site": "ch",
-  "file": "ch3_2",
-  "plot": 3,
-  "type": "1D",
-  "name": "Apt 3 \u00b7 shower room",
-  "pos": [
-   4.825,
-   1.586,
-   5.525
-  ],
-  "look": [
-   3.988,
-   1.236,
-   2.644
-  ],
-  "room": "Shower room",
   "note": "Apt 3, a 1-bed on the ground floor: oak herringbone, panelled walls, brass and marble. Drag to look round."
  },
  {
@@ -856,44 +745,6 @@
  },
  {
   "site": "ubl",
-  "file": "ubl1_living",
-  "plot": 1,
-  "type": "LG1",
-  "name": "Plot 1 \u00b7 kitchen and living",
-  "pos": [
-   -161.505,
-   -6.89,
-   105.027
-  ],
-  "look": [
-   -163.938,
-   -7.09,
-   106.143
-  ],
-  "room": "Kitchen and living",
-  "note": "Underbank Lofts, plot 1: photoreal 360\u00b0, furnished as the 21 Living CGIs. Drag to look round."
- },
- {
-  "site": "ubl",
-  "file": "ubl1_bedroom",
-  "plot": 1,
-  "type": "LG1",
-  "name": "Plot 1 \u00b7 bedroom",
-  "pos": [
-   -159.059,
-   -6.89,
-   106.287
-  ],
-  "look": [
-   -157.616,
-   -7.09,
-   105.029
-  ],
-  "room": "Bedroom",
-  "note": "Underbank Lofts, plot 1: photoreal 360\u00b0, furnished as the 21 Living CGIs. Drag to look round."
- },
- {
-  "site": "ubl",
   "file": "ubl13_living",
   "plot": 13,
   "type": "R1",
@@ -948,5 +799,43 @@
   ],
   "room": "Eaves room",
   "note": "Underbank Lofts, plot 13: photoreal 360\u00b0, furnished as the 21 Living CGIs. Drag to look round."
+ },
+ {
+  "site": "ubl",
+  "file": "ubl1_living",
+  "plot": 1,
+  "type": "LG1",
+  "name": "Plot 1 \u00b7 kitchen and living",
+  "pos": [
+   -161.505,
+   -6.89,
+   105.027
+  ],
+  "look": [
+   -163.938,
+   -7.09,
+   106.143
+  ],
+  "room": "Kitchen and living",
+  "note": "Underbank Lofts, plot 1: photoreal 360\u00b0, furnished as the 21 Living CGIs. Drag to look round."
+ },
+ {
+  "site": "ubl",
+  "file": "ubl1_bedroom",
+  "plot": 1,
+  "type": "LG1",
+  "name": "Plot 1 \u00b7 bedroom",
+  "pos": [
+   -159.059,
+   -6.89,
+   106.287
+  ],
+  "look": [
+   -157.616,
+   -7.09,
+   105.029
+  ],
+  "room": "Bedroom",
+  "note": "Underbank Lofts, plot 1: photoreal 360\u00b0, furnished as the 21 Living CGIs. Drag to look round."
  }
 ]
