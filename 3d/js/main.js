@@ -257,7 +257,7 @@ async function build() {
   const seatonI = W.bld.findIndex(b => b.n === 'Seaton House'), seaton = seatonI >= 0 ? W.bld.splice(seatonI, 1)[0] : null;
   CH = buildCharterHouse(M, BASE);
   scene.add(CH.group);
-  if (seaton) scene.add(buildSeatonHouse(M, seaton.p, groundAt)); else scene.add(buildSeatonSign(groundAt));
+  if (seaton) { const sgp = buildSeatonHouse(M, seaton.p, groundAt); scene.add(sgp); if (OFFICES_MODE) OFFICE_VIEW = addOfficeOverlay(sgp); } else scene.add(buildSeatonSign(groundAt));
   if (!IS_PH) { const ph = buildPrintHouse(M, { groundAt, forest, base: BASE, context: true }); ph.pick.visible = false; ph.group.remove(ph.pick); scene.add(ph.group); ctxRooms = ph.group.getObjectByName('rooms_ph'); festoon.push(...ph.bulbs); }
   if (!IS_UBL) {   // Underbank Lofts on its corner of St Petersgate, as another Brik site, in place of the OSM block
     try { const i = W.bld.findIndex(b => b.id === 832816); if (i >= 0) W.bld.splice(i, 1);
@@ -383,6 +383,7 @@ async function build() {
     // camera presets round the Print House: the St Joseph's side, the garden and walkways, Wellington Street, above
     // the opening shot is the CGI's side, from high over the south-east corner: both blocks' walkways wrapped round the garden
     HERO.pos.copy(CH.local(47, 39, 33)); HERO.tgt.copy(CH.local(13, 2.5, 13.5));
+    if (OFFICE_VIEW) { HERO.pos.copy(OFFICE_VIEW.pos); HERO.tgt.copy(OFFICE_VIEW.tgt); }
     VIEWS.rear = { pos: CH.local(50, 21, -44), tgt: CH.local(12, 7, 5) };
     VIEWS.street = { pos: new THREE.Vector3(6, groundAt(6, 236) + 38, 236), tgt: new THREE.Vector3(-29, groundAt(-27, 214) + 4, 212) };   // over the street trees, across Seaton House into the garden
     VIEWS.above = { pos: CH.local(36, 72, 34), tgt: CH.local(13, 0, 12) };   // near plan view from the south: the walkways and the garden
@@ -574,6 +575,65 @@ function setCut(y) { cutTarget = y; if (CUT.constant > 500 && y < 500) CUT.const
 
 // ------------------------------------------------------------------ views
 const HERO = { pos: new THREE.Vector3(-14, 13.5, -29), tgt: new THREE.Vector3(9, 6, 6) };
+// ---- Offices view (James, 6 Nov 2026): ?site=ph&offices=1 highlights the three offices for sale in Seaton House,
+// the Wellington Street frontage, with Office 5 shown as the BRIK Studios HQ. Indicative positions, not demise plans.
+const OFFICES_MODE = IS_PH && /[?&]offices=1\b/.test(location.search);
+if (OFFICES_MODE) {
+  Object.assign(SITE, { whatsapp: '447772424372', phone: '07772 424372', email: 'james@brik-studios.com' });
+  Object.assign(CHARLIE, { name: 'James Dempsey', role: 'CEO, BRIK Studios', bio: 'BRIK Studios HQ is Office 5 at The Print House', initials: 'JD' });
+  const st = document.createElement('style');
+  st.textContent = `#panel{display:none!important}#offkey{position:fixed;left:16px;bottom:16px;z-index:40;max-width:min(380px,calc(100vw - 32px));background:rgba(237,228,223,.96);color:#211F1E;border-radius:10px;padding:14px 16px;font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.22)}#offkey b{display:block;font-size:15px;margin-bottom:6px}#offkey .k{display:flex;gap:8px;align-items:center;margin:4px 0}#offkey i{width:14px;height:14px;border-radius:3px;flex:none}#offkey a{color:#A33A1F;font-weight:600}#offkey small{display:block;color:#6b625d;margin-top:8px}`;
+  document.head.appendChild(st);
+  const addKey = () => {
+    const k = document.createElement('div'); k.id = 'offkey';
+    k.innerHTML = `<b>The Print House offices</b><div class="k"><i style="background:#e8b84a"></i>For sale: Offices 2, 3 and 4</div><div class="k"><i style="background:#9a8f86"></i>Office 5: BRIK Studios HQ</div><small>Drag to turn, scroll or pinch to zoom. Positions are indicative.</small><div style="margin-top:8px"><a href="../offices/">Back to the offices page</a> · <a href="https://wa.me/447772424372">WhatsApp James</a></div>`;
+    document.body.appendChild(k);
+  };
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', addKey); else addKey();
+}
+function addOfficeOverlay(g) {
+  const f = g.userData && g.userData.front; if (!f) return null;
+  const { F0, F1, nx, nz, gF } = f, L = Math.hypot(F1[0] - F0[0], F1[1] - F0[1]), dx = (F1[0] - F0[0]) / L, dz = (F1[1] - F0[1]) / L;
+  const MAIN = Math.min(18.2, L - 6.2), bay = MAIN / 5, cut = bay * 4;
+  const M4 = new THREE.Matrix4().makeBasis(new THREE.Vector3(dx, 0, dz), new THREE.Vector3(0, 1, 0), new THREE.Vector3(-dz, 0, dx));
+  const sg = (-dz * nx + dx * nz) > 0 ? 1 : -1;
+  const at = (s, y, d) => new THREE.Vector3(s, gF + y, sg * d).applyMatrix4(M4).add(new THREE.Vector3(F0[0], 0, F0[1]));
+  const Z = [
+    { n: 'Office 2', sub: '£265,000 · 1,228 sq ft', s0: 0.15, s1: cut - 0.1, y0: 0.5, y1: 3.4, c: '#e8b84a' },
+    { n: 'Office 3', sub: '£227,500 · 990 sq ft', s0: cut + 0.1, s1: L - 0.15, y0: 0.5, y1: 3.4, c: '#e8b84a' },
+    { n: 'Office 4', sub: '£260,000 · 1,164 sq ft', s0: 0.15, s1: cut - 0.1, y0: 3.85, y1: 7.15, c: '#e8b84a' },
+    { n: 'Office 5', sub: 'BRIK Studios HQ', s0: cut + 0.1, s1: L - 0.15, y0: 3.85, y1: 7.15, c: '#9a8f86' },
+  ];
+  const grp = new THREE.Group(); grp.name = 'officeOverlay';
+  for (const z of Z) {
+    const w = z.s1 - z.s0, h = z.y1 - z.y0, box = new THREE.BoxGeometry(w, h, 0.12);
+    box.translate((z.s0 + z.s1) / 2, gF + (z.y0 + z.y1) / 2, sg * 0.62); box.applyMatrix4(M4); box.translate(F0[0], 0, F0[1]);
+    const mat = new THREE.MeshBasicMaterial({ color: z.c, transparent: true, opacity: 0.42, depthWrite: false });
+    const m = new THREE.Mesh(box, mat); m.renderOrder = 5; grp.add(m);
+    const e = new THREE.LineSegments(new THREE.EdgesGeometry(box), new THREE.LineBasicMaterial({ color: z.c }));
+    e.renderOrder = 6; grp.add(e);
+    // label
+    const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+    x.fillStyle = 'rgba(33,31,30,.88)'; x.beginPath(); x.roundRect(4, 4, 504, 152, 22); x.fill();
+    x.fillStyle = z.c; x.fillRect(26, 34, 10, 92);
+    x.fillStyle = '#ffffff'; x.font = '700 54px system-ui, "Helvetica Neue", Arial, sans-serif'; x.textBaseline = 'middle'; x.fillText(z.n, 56, 60);
+    x.fillStyle = '#e9e1dc'; x.font = '500 34px system-ui, "Helvetica Neue", Arial, sans-serif'; x.fillText(z.sub, 56, 114);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, depthTest: false, transparent: true }));
+    sp.scale.set(5.6, 1.75, 1); sp.position.copy(at((z.s0 + z.s1) / 2, (z.y0 + z.y1) / 2, 2.2)); sp.renderOrder = 10; grp.add(sp);
+  }
+  scene.add(grp);
+  // keep the view clear: leave out the street trees directly in front of the frontage (offices view only)
+  const fAdd = forest.add.bind(forest);
+  forest.add = (x, z, o = {}) => { const rx = x - F0[0], rz = z - F0[1], s_ = rx * dx + rz * dz, d_ = rx * nx + rz * nz;
+    if (s_ > -16 && s_ < L + 16 && d_ > 0.3 && d_ < 34 && !['shrub', 'grass', 'hedge', 'pot'].includes(o.kind)) return; return fAdd(x, z, o); };
+  const mid = at(L / 2, 3.6, 0), out = new THREE.Vector3(nx, 0, nz);
+  const v = { tgt: mid, pos: mid.clone().add(out.clone().multiplyScalar(33)).add(new THREE.Vector3(0, 9, 0)).add(new THREE.Vector3(dx, 0, dz).multiplyScalar(-7)) };
+  HERO.pos.copy(v.pos); HERO.tgt.copy(v.tgt);
+  return v;
+}
+let OFFICE_VIEW = null;
+
 const CLAMP = { x0: -40, x1: 60, z0: -45, z1: 55, y0: 0, y1: 28 };
 // camera presets: the main diagonal, round the back to the rear entrances, the drone's view up Churchgate, and from above
 const VIEWS = {
